@@ -17,4 +17,11 @@
       <OutputPath>..\x64\Release</OutputPath>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="obj\**" />
+      <EmbeddedResource Remove="obj\**" />
+      <None Remove="obj\**" />
+      <Page Remove="obj\**" />
+    </ItemGroup>
+
 </Project>
