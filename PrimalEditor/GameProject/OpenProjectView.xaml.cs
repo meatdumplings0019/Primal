@@ -4,11 +4,18 @@ using System.Windows.Input;
 
 namespace PrimalEditor.GameProject;
 
-public partial class OpenProjectView : UserControl
+public partial class OpenProjectView
 {
     public OpenProjectView()
     {
         InitializeComponent();
+
+        Loaded += (s, e) =>
+        {
+            var item = (ListBoxItem)ProjectsListBox.ItemContainerGenerator
+                .ContainerFromIndex(ProjectsListBox.SelectedIndex);
+            item?.Focus();
+        };
     }
 
     private void OnOpen_Button_Click(object sender, RoutedEventArgs e)
@@ -19,14 +26,10 @@ public partial class OpenProjectView : UserControl
     private void OpenSelectedProject()
     {
         var project = OpenProject.Open((ProjectData)ProjectsListBox.SelectedItem);
-        var dialogResult = false;
         var win = Window.GetWindow(this);
-        if (project != null)
-        {
-            dialogResult = true;
-            win!.DataContext = project;
-        }
-        win!.DialogResult = dialogResult;
+        var dialogResult = true;
+        win!.DataContext = project;
+        win.DialogResult = dialogResult;
         win.Close();
     }
 
